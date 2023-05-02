@@ -1,0 +1,63 @@
+<h1>Add ToDoTask</h1>
+<form #f="ngForm">
+  <div class="form-group">
+    <label>id</label>
+    <input
+      type="number"
+      name="id"
+      class="form-control"
+      [(ngModel)]="toDoList.id"
+      #i="ngModel"
+      required
+    />
+  </div>
+  <div class="alert alert-danger" *ngIf="i.invalid && i.touched">
+    id is required and must be between 1 and 50
+  </div>
+  <div class="alert alert-danger" *ngIf="i.value < 99 && i.dirty">
+    Min length is 3
+  </div>
+  <div class="form-group">
+    <label>titre</label>
+    <input
+      type="text"
+      name="titre"
+      class="form-control"
+      [(ngModel)]="toDoList.title"
+      #t="ngModel"
+      required
+      pattern="[a-zA-Z]+$"
+      minlength="3"
+      maxlength="50"
+    />
+  </div>
+  <div class="" *ngIf="t.touched">required</div>
+  <div class="alert alert-danger" *ngIf="t.invalid && t.touched">
+    <div>titre minlength is 3</div>
+    <div>titre pattern</div>
+  </div>
+
+  <div class="form-group">
+    <label>description</label>
+    <input
+      type="text"
+      name="description"
+      class="form-control"
+      [(ngModel)]="toDoList.description"
+      #d="ngModel"
+      required
+      minlength="15"
+      maxlength="150"
+    />
+  </div>
+  <div class="alert alert-danger" *ngIf="d.invalid && d.touched">
+    description is required
+  </div>
+  <div class="alert alert-danger" *ngIf="d.value > 150 && d.value < 15">
+    description >15
+  </div>
+
+  <button class="btn btn-success" [disabled]="f.invalid" (click)="save()">
+    save
+  </button>
+</form>
